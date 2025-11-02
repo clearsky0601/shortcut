@@ -1,0 +1,14 @@
+# 用户的快捷指令数据（隐私）
+exported_shortcuts/
+
+# 导出脚本（包含用户路径）
+export_all_shortcuts.sh
+
+# 临时文件
+*.bin
+*.tmp
+.DS_Store
+
+# 其他
+import_shortcut.sh
+

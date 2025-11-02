@@ -1,0 +1,84 @@
+[
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.getclipboard",
+    "WFWorkflowActionParameters": {
+      "UUID": "CLIPBOARD-UUID-111111"
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+    "WFWorkflowActionParameters": {
+      "WFInput": {
+        "Type": "Variable",
+        "Variable": {
+          "Value": {
+            "OutputUUID": "CLIPBOARD-UUID-111111",
+            "Type": "ActionOutput",
+            "OutputName": "剪贴板"
+          },
+          "WFSerializationType": "WFTextTokenAttachment"
+        }
+      },
+      "WFControlFlowMode": 0,
+      "GroupingIdentifier": "CHECK-YOUTUBE-GROUP",
+      "WFCondition": 99,
+      "WFConditionalActionString": "youtube.com"
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.text.replace",
+    "WFWorkflowActionParameters": {
+      "WFInput": {
+        "Value": {
+          "string": "￼",
+          "attachmentsByRange": {
+            "{0, 1}": {
+              "OutputUUID": "CLIPBOARD-UUID-111111",
+              "Type": "ActionOutput",
+              "OutputName": "剪贴板"
+            }
+          }
+        },
+        "WFSerializationType": "WFTextTokenString"
+      },
+      "WFReplaceTextFind": "https://",
+      "WFReplaceTextReplace": "https://subtitle.to/",
+      "UUID": "REPLACE-UUID-222222"
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.openurl",
+    "WFWorkflowActionParameters": {
+      "WFInput": {
+        "Value": {
+          "OutputUUID": "REPLACE-UUID-222222",
+          "Type": "ActionOutput",
+          "OutputName": "更新后的文本"
+        },
+        "WFSerializationType": "WFTextTokenAttachment"
+      }
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+    "WFWorkflowActionParameters": {
+      "GroupingIdentifier": "CHECK-YOUTUBE-GROUP",
+      "WFControlFlowMode": 1
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.alert",
+    "WFWorkflowActionParameters": {
+      "WFAlertActionTitle": "剪贴板不是 YouTube 链接",
+      "WFAlertActionMessage": "",
+      "WFAlertActionCancelButtonShown": false
+    }
+  },
+  {
+    "WFWorkflowActionIdentifier": "is.workflow.actions.conditional",
+    "WFWorkflowActionParameters": {
+      "GroupingIdentifier": "CHECK-YOUTUBE-GROUP",
+      "WFControlFlowMode": 2
+    }
+  }
+]
